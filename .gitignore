@@ -1,3 +1,16 @@
+# Virtual environment
 venv/
+
+# Environment variables
 .env
+
+# Python cache
 __pycache__/
+*.pyc
+
+# Local run scripts
+*.bat
+
+# macOS / Windows junk (safe to ignore)
+.DS_Store
+Thumbs.db
