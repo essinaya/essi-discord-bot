@@ -2,6 +2,8 @@ import os
 from dotenv import load_dotenv
 import discord
 from discord import app_commands
+from game.three_cup_monte import *
+
 
 #look for a file named ".env" in the SAME folder of this python script and loads each key value pair in the script.
 load_dotenv()
@@ -114,13 +116,24 @@ async def introduction(interaction: discord.Interaction):
     essi_bot_introduction_console()
     await interaction.response.send_message("Hello, world! This is the Essi bot! I am just a simple bot that can do Three Cup Monte, Tic-Tac-Toe, and Blackjack!")
 
+
+@tree.command(name="monte", description="Play Three Cup Monte")
+async def monte(interaction: discord.Interaction):
+    await interaction.response.send_message(
+        f"Hello, {interaction.user.display_name}! Welcome to Three Cup Monte!"
+    )
+    await interaction.followup.send(
+        "Would you like instructions or start now?",
+        view=MonteMenuView()
+    )
+
     
 #This is a decorator that registers the function under it as an event handler. 
 # You are telling the client: “remember this function and call it later when Discord fires the event.”
 #This is reserved for Discord events! (because of discord.Client)
 #client.event is a method that takes your function (like on_ready) and registers it as an event handler inside the client. 
 # It does not return “client.event”. It returns a new function that the client stores internally in its event registry.
-@client.event
+
 #This defines an asynchronous function that is called automatically by discord.py when the bot has successfully connected and is ready. 
 # It does not take any parameters for this event.
 #the method name MUST match what is indicated in the Discord API. 'on_ready' is one of Discord's methods
@@ -133,6 +146,7 @@ async def introduction(interaction: discord.Interaction):
 #    await tree.sync()
 #
 # Without syncing, new slash commands will NOT show up in Discord.
+@client.event
 async def on_ready():
     #Inside on_ready, this prints a message to your terminal so you know the bot logged in correctly.
     #  client.user is the bot’s own user object, and the f-string inserts it into the text.
