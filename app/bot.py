@@ -1,8 +1,10 @@
 import os
+import asyncio
 from dotenv import load_dotenv
 import discord
 from discord import app_commands
 from game.three_cup_monte import *
+from game.rock_paper_scissors.views import rps_views
 
 
 #look for a file named ".env" in the SAME folder of this python script and loads each key value pair in the script.
@@ -116,7 +118,7 @@ async def introduction(interaction: discord.Interaction):
     essi_bot_introduction_console()
     await interaction.response.send_message("Hello, world! This is the Essi bot! I am just a simple bot that can do Three Cup Monte, Tic-Tac-Toe, and Blackjack!")
 
-
+#Three Cup Monte
 @tree.command(name="monte", description="Play Three Cup Monte")
 async def monte(interaction: discord.Interaction):
     await interaction.response.send_message(
@@ -125,6 +127,13 @@ async def monte(interaction: discord.Interaction):
     await interaction.followup.send(
         "Would you like instructions or start now?",
         view=MonteMenuView()
+    )
+
+#Rock Paper Scissors
+async def rps(interaction: discord.Interaction):
+    await interaction.response.send_message(
+        f"Hello, {interaction.user.display_name}! Welcome to Rock, Paper Scissors!",
+        view  = rps_views.RpsMainMenuView()
     )
 
     
@@ -157,3 +166,13 @@ async def on_ready():
 # then blocks the script and runs the internal event loop until you stop it with Ctrl+C or an error happens.
 #the entry point. Can be interpreted as the 'main' in Java
 client.run(TOKEN)
+
+
+
+
+async def load_extensions():
+    for filename in os.listdir("./commands"):
+        if filename.endswith(".py"):
+            await bot.load_extension(f"commands.{filename[:-3]}")
+
+asyncio.run(load_extensions())
