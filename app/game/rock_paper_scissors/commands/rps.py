@@ -2,8 +2,11 @@ import discord
 from discord import app_commands
 from discord.ext import commands
 
-import views.rps_views
-from views.rps_views import RpsMainMenuView, RpsButton, RpsMovesView
+from game.rock_paper_scissors.views.rps_views import (
+    RpsMainMenuView,
+    RpsButton,
+    RpsMovesView
+)
 
 
 #Define command logic. Write the command under a Cog
@@ -13,9 +16,13 @@ class RPSCommand(commands.Cog):
 
     @app_commands.command(name="rps", description="Play Rock Paper Scissors with Essi Bot")
     async def rps(self, interaction: discord.Interaction):
+        view = RpsMainMenuView()  # INSTANTIATE THE VIEW.
+        #Discord UI elements (Views, Buttons, Select menus) must be instances, not classes.
+        
         await interaction.response.send_message(
             content = "Ready to Play Rock Paper Scissors?",
-            view= RpsMainMenuView,
+            view= view, #must receive an object instance, not the class. Previous code was RpsMainMenuView
+            #view= RpsMainMenuView(), #this works as well. Either of the two works.
             ephemeral=True
         )
 

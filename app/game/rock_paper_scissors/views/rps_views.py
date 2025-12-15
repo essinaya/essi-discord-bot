@@ -1,5 +1,9 @@
 import discord
-from utils.game_logic import get_players_choice_value, get_bots_choice_value, rock_paper_scissors
+from game.rock_paper_scissors.utils.game_logic import (
+    get_players_choice_value,
+    get_bots_choice_value,
+    rock_paper_scissors
+)
 import asyncio
 
 class RpsMainMenuView(discord.ui.View):
