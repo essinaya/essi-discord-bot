@@ -2,7 +2,8 @@ import discord
 from game.rock_paper_scissors.utils.game_logic import (
     get_players_choice_value,
     get_bots_choice_value,
-    rock_paper_scissors
+    rock_paper_scissors,
+    get_state_emoji
 )
 import asyncio
 
@@ -50,16 +51,17 @@ class RpsButton(discord.ui.Button):
         )
 
         results = rock_paper_scissors(players_choice)
-
+        results_emoji = get_state_emoji(results)
         await interaction.followup.send(
-            f"{interaction.user.display_name} {results}s against Bot!"
+            f"{interaction.user.display_name} {results}s against Bot! {results_emoji}"
         )
         
 
 class RpsMovesView(discord.ui.View):
     def __init__(self):
         super().__init__()
-        self.add_item(RpsButton("Rock", 1))
-        self.add_item(RpsButton("Paper", 2))
-        self.add_item(RpsButton("Scissors", 3))
+        print("[RPS Views] New game initiated-------------------------------------------")
+        self.add_item(RpsButton("🪨 Rock", 1)) 
+        self.add_item(RpsButton("📰 Paper", 2))
+        self.add_item(RpsButton("✂️ Scissors", 3))
 
