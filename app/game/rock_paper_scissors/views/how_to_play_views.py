@@ -11,10 +11,10 @@ class HowToPlayView(discord.ui.View):
         super().__init__(timeout=timeout)
         
     #Continue
-    @discord.ui.button(label="✅Continue", style=discord.ButtonStyle.primary)
+    @discord.ui.button(label="✅Continue", style=discord.ButtonStyle.success)
     async def htp_continue(self, btn_interaction: discord.Interaction, button: discord.ui.Button):
         await btn_interaction.response.send_message(
-            "Placeholder text for Continue here!",
+            "Ready to Play Rock Paper Scissors?",
             view=rps_nav_obj.determine_view("RPS")
         )
 
