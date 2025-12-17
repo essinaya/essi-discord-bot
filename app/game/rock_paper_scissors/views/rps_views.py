@@ -5,7 +5,14 @@ from game.rock_paper_scissors.utils.game_logic import (
     rock_paper_scissors,
     get_state_emoji
 )
+
+from game.rock_paper_scissors.views.rps_navigate import (
+    RpsNavigate
+)
+
 import asyncio
+
+rps_nav_obj = RpsNavigate()
 
 class RpsMainMenuView(discord.ui.View):
     def __init__(self, *, timeout = 180):
@@ -14,8 +21,10 @@ class RpsMainMenuView(discord.ui.View):
     #How to play
     @discord.ui.button(label="How to Play", style=discord.ButtonStyle.primary)
     async def how_to_play(self, btn_interaction: discord.Interaction, button: discord.ui.Button):
+        
         await btn_interaction.response.send_message(
-            "Classic Rock, Paper, Scissors! Choose between the three, and we'll see if you win against me!"
+            "Classic Rock, Paper, Scissors! Choose between the three, and we'll see if you win against me!",
+            view=rps_nav_obj.determine_view("HTP")
         )
 
 
@@ -24,7 +33,7 @@ class RpsMainMenuView(discord.ui.View):
     async def play_now(self, btn_interaction: discord.Interaction, button: discord.ui.Button):
         await btn_interaction.response.send_message(
             "Choose your move: Rock, Paper, or Scissors?",
-            view = RpsMovesView()
+            view = rps_nav_obj.determine_view("RMV")
         )
 
 
