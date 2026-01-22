@@ -1,6 +1,15 @@
 import discord
+import typing
 
-
+if typing.TYPE_CHECKING:
+    from game.rock_paper_scissors.views.rps_views import (
+                        RpsMainMenuView,
+                        RpsMovesView
+        )
+            
+    from game.rock_paper_scissors.views.how_to_play_views import (
+                        HowToPlayView
+        )
 
 
 
@@ -13,16 +22,6 @@ class RpsNavigate(discord.ui.View):
         self.view_choice = view_choice
         print(f"[RPS Navigate] Determining views to be passed: {self.view_choice}")
 
-        #initialize views
-        print("Initializing views...")
-        from game.rock_paper_scissors.views.rps_views import (
-                    RpsMainMenuView,
-                    RpsMovesView
-                )
-        
-        from game.rock_paper_scissors.views.how_to_play_views import (
-                    HowToPlayView
-                )
         rps_main_menu_view = RpsMainMenuView()
         how_to_play_view = HowToPlayView()
         rps_moves_view = RpsMovesView()

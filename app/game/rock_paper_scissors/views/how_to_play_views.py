@@ -1,8 +1,10 @@
-import discord
+import discord, typing
 
-from game.rock_paper_scissors.views.rps_navigate import (
-        RpsNavigate
-    )
+
+if typing.TYPE_CHECKING:
+    from game.rock_paper_scissors.views.rps_navigate import (
+            RpsNavigate
+        )
 
 rps_nav_obj = RpsNavigate()
 
