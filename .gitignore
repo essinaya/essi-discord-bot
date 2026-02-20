@@ -14,3 +14,11 @@ __pycache__/
 # macOS / Windows junk (safe to ignore)
 .DS_Store
 Thumbs.db
+
+
+.vs/
+app/.vscode/
+app/running instructions.txt
+blog-related.zip
+
+.gitignore
