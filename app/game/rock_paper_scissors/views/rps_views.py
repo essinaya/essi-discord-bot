@@ -1,18 +1,10 @@
-import discord, datetime, typing
-
-if typing.TYPE_CHECKING:
-    from game.rock_paper_scissors.utils.game_logic import (
+import discord, datetime
+from game.rock_paper_scissors.utils.game_logic import (
         get_players_choice_value,
         get_bots_choice_value,
         rock_paper_scissors,
         get_state_emoji
     )
-
-    from game.rock_paper_scissors.views.rps_navigate import (
-        RpsNavigate
-    )
-
-rps_nav_obj = RpsNavigate()
 
 class RpsMainMenuView(discord.ui.View):
     def __init__(self, *, timeout = 180):
@@ -24,7 +16,7 @@ class RpsMainMenuView(discord.ui.View):
         
         await btn_interaction.response.send_message(
             "Classic Rock, Paper, Scissors! Choose between the three, and we'll see if you win against me!",
-            view=rps_nav_obj.determine_view("HTP")
+            view=HowToPlayView()
         )
 
 
@@ -33,7 +25,29 @@ class RpsMainMenuView(discord.ui.View):
     async def play_now(self, btn_interaction: discord.Interaction, button: discord.ui.Button):
         await btn_interaction.response.send_message(
             "Choose your move: Rock, Paper, or Scissors?",
-            view = rps_nav_obj.determine_view("RMV")
+            view = RpsMovesView()
+        )
+        
+        
+class HowToPlayView(discord.ui.View):
+    def __init__(self, *, timeout: float | None = 180):
+        super().__init__(timeout=timeout)
+        
+        
+    #Continue
+    @discord.ui.button(label="✅Continue", style=discord.ButtonStyle.success)
+    async def htp_continue(self, btn_interaction: discord.Interaction, button: discord.ui.Button):
+        await btn_interaction.response.send_message(
+            "Ready to Play Rock Paper Scissors?",
+            view=RpsMainMenuView()
+        )
+
+    
+    #Exit
+    @discord.ui.button(label="🔚 Exit", style=discord.ButtonStyle.red)
+    async def htp_exit(self, btn_interaction:discord.Interaction, button: discord.ui.Button):
+        await btn_interaction.response.send_message(
+            "Goodbye!"
         )
 
 

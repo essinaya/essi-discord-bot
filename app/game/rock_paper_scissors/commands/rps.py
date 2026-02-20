@@ -2,9 +2,8 @@ import discord
 from discord import app_commands
 from discord.ext import commands
 
-from game.rock_paper_scissors.views.rps_navigate import (
-    RpsNavigate
-)
+from game.rock_paper_scissors.views.rps_views import RpsMainMenuView
+
 
 
 #Define command logic. Write the command under a Cog
@@ -15,10 +14,10 @@ class RPSCommand(commands.Cog):
 
     @app_commands.command(name="rps", description="Play Rock Paper Scissors with Essi Bot")
     async def rps(self, interaction: discord.Interaction):
-        #view = RpsMainMenuView()  # INSTANTIATE THE VIEW.
+        view = RpsMainMenuView()  # INSTANTIATE THE VIEW.
         #Discord UI elements (Views, Buttons, Select menus) must be instances, not classes.
-        rps_nav_obj = RpsNavigate()
-        view = rps_nav_obj.determine_view("RPS")
+        # rps_nav_obj = RpsNavigate()
+        # view = rps_nav_obj.determine_view("RPS")
         
         
         
